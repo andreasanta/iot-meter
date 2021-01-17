@@ -92,11 +92,11 @@ func setupJwtMiddleware() (*jwt.GinJWTMiddleware, error) {
 
 	// When you use jwt.New(), the function is already automatically called for checking,
 	// which means you don't need to call it again.
-	errInit := authMiddleware.MiddlewareInit()
+	err = authMiddleware.MiddlewareInit()
 
-	if errInit != nil {
-		log.Println("authMiddleware.MiddlewareInit() Error:" + errInit.Error())
-		return nil, errInit
+	if err != nil {
+		log.Println("authMiddleware.MiddlewareInit() Error:" + err.Error())
+		return nil, err
 	}
 
 	return authMiddleware, nil
