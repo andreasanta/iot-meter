@@ -5,9 +5,9 @@ import (
 )
 
 type User struct {
-	ID string				`gorm:"primaryKey"`
+	ID           string `gorm:"primaryKey"`
 	IotAccountID string
-	IotAccount Account		`gorm:"index" gorm:"foreignKey:IotAccountID" gorm:"references:ID"`
-	CreatedAt time.Time
-  	UpdatedAt time.Time
+	IotAccount   Account `gorm:"foreignKey:IotAccountID"`
+	CreatedAt    time.Time
+	UpdatedAt    time.Time
 }

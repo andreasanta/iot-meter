@@ -11,10 +11,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// Global static db
-var database *gorm.DB
-
-func LoadDatabase() (*gorm.DB) {
+func LoadDatabase() (*gorm.DB, error) {
 
 	log.Println("Opening database")
 
@@ -24,14 +21,19 @@ func LoadDatabase() (*gorm.DB) {
 	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Println("Unable to open SQLLite Database")
+		return nil, err
 	}
 
 	log.Println("Performing migrations")
 
 	// Perform automatic migrations to update database
-	db.AutoMigrate(&models.Account{}, &models.User{})
+	err = db.AutoMigrate(&models.Account{}, &models.User{})
+	if err != nil {
+		log.Println("Unable to migrate DB automatically:")
+		log.Println(err)
+		return nil, err
+	}
 
-	database = db
-	return db
+	return db, nil
 }
