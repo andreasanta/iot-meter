@@ -17,7 +17,7 @@ func LoadDatabase() (*gorm.DB, error) {
 
 	db, err := gorm.Open(sqlite.Open(os.Getenv("DB_FILE_PATH")), &gorm.Config{
 		SkipDefaultTransaction: true,
-		Logger:                 logger.Default.LogMode(logger.Silent),
+		Logger:                 logger.Default.LogMode(logger.Info),
 	})
 
 	if err != nil {
